@@ -1,0 +1,101 @@
+package com.example.myapplication
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.widget.*
+
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var etAd: EditText
+    lateinit var etSoyad: EditText
+    lateinit var etTel: EditText
+    lateinit var etMail: EditText
+    lateinit var btnKaydet: Button
+    lateinit var btnSil: Button
+    lateinit var btnListele: Button
+    lateinit var btnDuzelt : Button
+    lateinit var lvAdlar : ListView
+    lateinit var spnEgit : Spinner
+    lateinit var tvEs : TextView
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        etAd = findViewById(R.id.etAd)
+        etSoyad = findViewById(R.id.etSoyad)
+        tvEs = findViewById(R.id.tvEs)
+        etTel = findViewById(R.id.etTelNo)
+        etMail = findViewById(R.id.etEmail)
+        btnKaydet = findViewById(R.id.btnKaydet)
+        btnDuzelt = findViewById(R.id.btnDuzelt)
+        btnSil = findViewById(R.id.btnSil)
+        btnListele = findViewById(R.id.btnListele)
+        spnEgit = findViewById(R.id.spnEgit)
+        lvAdlar=findViewById(R.id.lvKayit)
+        var egitim =resources.getStringArray(R.array.egitim)
+
+        val egitimAdapter=ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,egitim)
+        spnEgit.adapter=egitimAdapter
+        spnEgit.onItemSelectedListener = object  : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                tvEs.text = egitim[position]
+
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
+        btnListele.setOnClickListener {
+            listele()
+        }
+
+
+
+
+        btnKaydet.setOnClickListener {
+            val gelenAd = etAd.text.toString()
+            val gelenSoyad = etSoyad.text.toString()
+            val gelenTel = etTel.text.toString()
+            val gelenMail = etMail.text.toString()
+            val gelenEgitim = tvEs.text.toString()
+            val vt = VeriTabani(this)
+            val sonuc = vt.veriEkle(gelenAd, gelenSoyad, gelenTel, gelenMail, gelenEgitim)
+            Toast.makeText(this, sonuc.toString() + " Kayıt eklendi", Toast.LENGTH_LONG).show()
+            temizle()
+
+        }
+        btnDuzelt.setOnClickListener {
+            val gelenAd = etAd.text.toString()
+            val gelenSoyad = etSoyad.text.toString()
+            val gelenTel = etTel.text.toString()
+            val gelenMail = etMail.text.toString()
+            val gelenEgitim = tvEs.text.toString()
+            val vt = VeriTabani(this)
+            val duzelti = vt.veriDuzenle(gelenAd, gelenSoyad, gelenTel, gelenMail, gelenEgitim)
+        }
+    }
+
+
+    private fun listele() {
+        val vt=VeriTabani(this)
+        val liste=vt.veriListele()
+        val adapter=ArrayAdapter(this,android.R.layout.simple_list_item_1,liste)
+        lvAdlar.adapter=adapter
+    }
+
+    private fun temizle() {
+        etAd.text = null
+        etSoyad.text = null
+        etMail.text = null
+        etTel.text = null
+    }
+
+}
