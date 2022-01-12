@@ -72,15 +72,15 @@ class MainActivity : AppCompatActivity() {
             temizle()
 
         }
-        btnDuzelt.setOnClickListener {
-            val gelenAd = etAd.text.toString()
-            val gelenSoyad = etSoyad.text.toString()
-            val gelenTel = etTel.text.toString()
-            val gelenMail = etMail.text.toString()
-            val gelenEgitim = tvEs.text.toString()
-            val vt = VeriTabani(this)
-            val duzelti = vt.veriDuzenle(gelenAd, gelenSoyad, gelenTel, gelenMail, gelenEgitim)
-        }
+      //  btnDuzelt.setOnClickListener {
+          //  val gelenAd = etAd.text.toString()
+          //  val gelenSoyad = etSoyad.text.toString()
+          //  val gelenTel = etTel.text.toString()
+          //  val gelenMail = etMail.text.toString()
+         //   val gelenEgitim = tvEs.text.toString()
+          //  val vt = VeriTabani(this)
+         //   val duzelti = vt.veriDuzenle(gelenAd, gelenSoyad, gelenTel, gelenMail, gelenEgitim
+   //     }
     }
 
 
